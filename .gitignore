@@ -1,0 +1,33 @@
+# Build artifacts
+build/
+bin/
+*.o
+*.a
+*.so
+*.out
+
+# Debugging
+core
+core.*
+*.core
+
+# Temporary files
+*.tmp
+*.log
+*.swp
+*~
+
+# IDE
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db

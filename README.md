@@ -31,19 +31,17 @@ Main components:
 - Logger: records security-related events
 - Tests: validates monitoring and enforcement behavior
 
-## Learning Roadmap
+## Experiments
 
-### 01 - Linux Audit
-Observe and analyse security-relevant system events.
+| Lab | Topic | Status |
+|---|---|---|
+| 01 | Linux Audit — file access monitoring | Completed |
+| 02 | fanotify — file access monitoring and enforcement | Completed |
+| 03 | eBPF — kernel event monitoring | Planned |
+| 04 | BPF LSM — kernel security policies | Planned |
 
-### 02 - fanotify
-Monitor filesystem access and experiment with permission events.
-
-### 03 - eBPF
-Observe kernel events and communicate with userspace.
-
-### 04 - BPF LSM
-Explore kernel-level security policy enforcement.
+See each experiment's README for its implementation, test
+procedure, observations and limitations.
 
 ## Development Environment
 

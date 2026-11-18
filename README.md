@@ -1,57 +1,79 @@
+
 # Linux Endpoint Security Lab
 
-A practical Linux security laboratory focused on endpoint
-monitoring, access control and kernel-level security mechanisms.
+A practical Linux security laboratory focused on endpoint monitoring, access control and kernel-level security mechanisms.
 
 ## Objectives
 
-Understand and experiment with Linux security mechanisms used
-by endpoint protection solutions.
+Understand and experiment with Linux security mechanisms used by endpoint protection solutions.
 
-The project focuses on:
+The project explores:
 
 - Linux processes, permissions and system calls
 - Linux Audit subsystem
-- Filesystem monitoring with fanotify
+- Filesystem monitoring and access control with fanotify
 - Kernel event monitoring with eBPF
-- Linux Security Modules (LSM)
+- BPF-based Linux Security Modules (BPF LSM)
 - Security policy enforcement
-- Concurrency and TOCTOU vulnerabilities
-- C/C++ system programming
-
-## Project Architecture
-
-The laboratory will progressively implement a small Linux
-endpoint security agent.
-
-Main components:
-
-- Monitor: collects system and filesystem events
-- Policy: evaluates access-control rules
-- Logger: records security-related events
-- Tests: validates monitoring and enforcement behavior
+- Concurrency, race conditions and TOCTOU vulnerabilities
+- C and C++ systems programming
 
 ## Experiments
 
 | Lab | Topic | Status |
 |---|---|---|
-| 01 | Linux Audit — file access monitoring | Completed |
-| 02 | fanotify — file access monitoring and enforcement | Completed |
-| 03 | eBPF — kernel event monitoring | Planned |
-| 04 | BPF LSM — kernel security policies | Planned |
+| 01 | Linux Audit — file access monitoring |
+| 02 | fanotify — monitoring and access control |
+| 03 | eBPF — syscall monitoring with bpftrace and libbpf |
+| 04 | BPF LSM — kernel security policies |
 
-See each experiment's README for its implementation, test
-procedure, observations and limitations.
+Each experiment includes its implementation, test procedure, observations and limitations.
+
+## Project Architecture
+
+The project progressively develops a small Linux endpoint security agent.
+
+Main components:
+
+- Monitor: collects system and filesystem events
+- eBPF: provides kernel-level event monitoring
+- Policy: evaluates access-control rules
+- Logger: records security-related events
+- Tests: validates monitoring and enforcement behavior
 
 ## Development Environment
 
-Primary environment:
-- Debian Linux
-- C / C++
-- GCC / G++
-- Linux kernel interfaces
-- Git
+The project is developed and tested on Debian Linux.
 
-## Project Status
+Main technologies:
 
-Initial repository setup.
+- C and C++
+- Linux system calls and kernel interfaces
+- Linux Audit and fanotify
+- eBPF, bpftrace and libbpf
+- Clang/LLVM, GCC and bpftool
+- Make and Git
+
+## Build
+
+Build all components:
+
+```bash
+make clean
+make all
+```
+
+Build individual components:
+
+```bash
+make fanotify
+make ebpf
+```
+
+Generated files are stored in `build/` and are not tracked by Git.
+
+## Safety
+
+Some experiments require root privileges and can actively deny file access.
+
+Run them only in a controlled test environment, using dedicated test files.

@@ -72,3 +72,69 @@ ls -l /proc/<PID>/fd
 cat /proc/sys/fs/fanotify/max_queued_events
 cat /proc/sys/fs/fanotify/max_user_marks
 ```
+
+## Lab 03 — eBPF
+
+### Environment
+
+| Command | Purpose |
+|---|---|
+| `clang --version` | Check the Clang compiler |
+| `llvm-config --version` | Check the LLVM version |
+| `pkg-config --modversion libbpf` | Check the libbpf version |
+| `bpftrace --version` | Check bpftrace |
+| `sudo bpftool version` | Check bpftool |
+| `sudo bpftool feature probe` | Inspect kernel BPF features |
+| `sudo bpftool btf dump file /sys/kernel/btf/vmlinux format c` | Inspect kernel BTF types |
+
+### bpftrace
+
+List the openat entry tracepoint:
+
+```bash
+sudo bpftrace -l 'tracepoint:syscalls:sys_enter_openat'
+```
+
+Monitor openat syscall attempts:
+
+```bash
+sudo bpftrace -e '
+tracepoint:syscalls:sys_enter_openat
+{
+    printf("PID=%d PROCESS=%s FILE=%s\n",
+           pid, comm, str(args.filename));
+}'
+```
+
+### Native eBPF application
+
+Build all components:
+
+```bash
+make all
+```
+
+Build only the eBPF application:
+
+```bash
+make ebpf
+```
+
+Run the userspace collector:
+
+```bash
+sudo ./build/openat
+```
+
+Stop the collector with Ctrl+C.
+
+### Generated build artifacts
+
+| File | Purpose |
+|---|---|
+| `build/vmlinux.h` | Kernel type definitions generated from BTF |
+| `build/openat.bpf.o` | Compiled eBPF ELF object |
+| `build/openat.skel.h` | libbpf-generated skeleton |
+| `build/openat` | Userspace loader and event collector |
+
+Generated files are stored in `build/` and ignored by Git.

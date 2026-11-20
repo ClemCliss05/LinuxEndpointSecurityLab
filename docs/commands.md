@@ -138,3 +138,31 @@ Stop the collector with Ctrl+C.
 | `build/openat` | Userspace loader and event collector |
 
 Generated files are stored in `build/` and ignored by Git.
+
+## Lab 04 — BPF LSM
+
+Build:
+
+    make lsm
+
+Clean build:
+
+    make clean
+    make lsm
+
+Start the security agent:
+
+    sudo ./build/file_open <file-path>
+
+Inspect kernel trace output:
+
+    sudo cat /sys/kernel/tracing/trace_pipe
+
+Stop the agent:
+
+    Ctrl+C
+
+Test a protected file:
+
+    cat <file-path>
+    echo "Exit code: $?"
